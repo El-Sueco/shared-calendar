@@ -1,4 +1,4 @@
-package at.home;
+package at.home.sharedcalendar;
 
 import io.micronaut.runtime.Micronaut;
 
