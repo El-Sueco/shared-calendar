@@ -1,36 +1,23 @@
-package at.home.sharedcalendar.repository.model;
+package at.home.sharedcalendar.rest.model;
 
 
 import io.micronaut.serde.annotation.Serdeable;
-import jakarta.persistence.*;
 
 import java.time.OffsetDateTime;
 
-@Entity
 @Serdeable
-@Table(name = "entries")
-public class Entry {
-
-    @Id
-    @Column(name = "ID", unique = true, updatable = false, nullable = false)
-    @GeneratedValue(strategy = GenerationType.UUID)
+public class CalendarEntry {
     private String uuid;
 
-    @Column(name = "name", unique = false, updatable = true, nullable = false)
     private String name;
 
-    @Column(name = "description", unique = false, updatable = true, nullable = false)
     private String description;
 
-    @Column(name = "start_date_time", unique = false, updatable = true, nullable = false)
     private OffsetDateTime startDateTime;
 
-    @Column(name = "end_date_time", unique = false, updatable = true, nullable = false)
     private OffsetDateTime endDateTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "calendar_id", referencedColumnName = "id", unique = false, updatable = true, nullable = false)
-    private Calendar calendar;
+    private String calendarUuid;
 
     public String getUuid() {
         return uuid;
@@ -72,11 +59,16 @@ public class Entry {
         this.endDateTime = endDateTime;
     }
 
-    public Calendar getCalendar() {
-        return calendar;
+    public String getCalendarUuid() {
+        return calendarUuid;
     }
 
-    public void setCalendar(Calendar calendar) {
-        this.calendar = calendar;
+    public void setCalendarUuid(String calendarUuid) {
+        this.calendarUuid = calendarUuid;
+    }
+
+    @Override
+    public String toString() {
+        return "CalendarEntry [name=" + name + ", description=" + description + ", startDateTime=" + startDateTime + ", endDateTime=" + endDateTime + ", calendarUuid=" + calendarUuid + "]";
     }
 }
