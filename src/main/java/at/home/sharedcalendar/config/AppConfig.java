@@ -6,9 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.spi.ConditionalConverter;
 import org.modelmapper.spi.MappingContext;
 
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
+import java.time.*;
 
 @Factory
 public class AppConfig {
@@ -52,7 +50,7 @@ public class AppConfig {
                 return null;
             }
             LocalDateTime local = mappingContext.getSource();
-            OffsetDateTime offset = local.atZone(ZoneId.systemDefault()).toOffsetDateTime();
+            OffsetDateTime offset = OffsetDateTime.ofInstant(local.toInstant(ZoneOffset.UTC), ZoneOffset.ofTotalSeconds(ZoneId.systemDefault().getRules().getOffset(Instant.now()).getTotalSeconds()));
             return offset;
         }
     }

@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,8 +51,8 @@ public class CalendarEntryServiceImpl implements CalendarEntryService {
         CalendarEntryModel calendarEntryModel = new CalendarEntryModel();
         calendarEntryModel.setName(calendarEntry.getName());
         calendarEntryModel.setDescription(calendarEntry.getDescription());
-        calendarEntryModel.setStartDateTime(LocalDateTime.now());
-        calendarEntryModel.setEndDateTime(LocalDateTime.now());
+        calendarEntryModel.setStartDateTime(LocalDateTime.ofInstant(calendarEntry.getStartDateTime().toInstant(), ZoneOffset.UTC));
+        calendarEntryModel.setEndDateTime(LocalDateTime.ofInstant(calendarEntry.getEndDateTime().toInstant(), ZoneOffset.UTC));
         calendarEntryModel.setCalendar(calendarModel);
         calendarEntryModel = calendarEntryRepository.save(calendarEntryModel);
         return modelMapper.map(calendarEntryModel, CalendarEntry.class);
@@ -71,8 +72,8 @@ public class CalendarEntryServiceImpl implements CalendarEntryService {
         CalendarEntryModel calendarEntryModel = optionalCalendarEntryModel.get();
         calendarEntryModel.setName(calendarEntry.getName());
         calendarEntryModel.setDescription(calendarEntry.getDescription());
-        calendarEntryModel.setStartDateTime(calendarEntry.getStartDateTime().toLocalDateTime());
-        calendarEntryModel.setEndDateTime(calendarEntry.getEndDateTime().toLocalDateTime());
+        calendarEntryModel.setStartDateTime(LocalDateTime.ofInstant(calendarEntry.getStartDateTime().toInstant(), ZoneOffset.UTC));
+        calendarEntryModel.setEndDateTime(LocalDateTime.ofInstant(calendarEntry.getEndDateTime().toInstant(), ZoneOffset.UTC));
         calendarEntryModel.setCalendar(calendarModel);
         calendarEntryModel = calendarEntryRepository.merge(calendarEntryModel);
         return modelMapper.map(calendarEntryModel, CalendarEntry.class);
