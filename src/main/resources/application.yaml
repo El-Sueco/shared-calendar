@@ -17,3 +17,8 @@ jpa:
         hbm2ddl:
           auto: update
         show_sql: false
+
+dropbox:
+  auth:
+    key: dropboxAppKey
+    secret: dropboxAppSecret

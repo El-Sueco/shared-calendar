@@ -4,6 +4,7 @@ import at.home.sharedcalendar.repository.CalendarEntryRepository;
 import at.home.sharedcalendar.repository.CalendarRepository;
 import at.home.sharedcalendar.repository.model.CalendarEntryModel;
 import at.home.sharedcalendar.repository.model.CalendarModel;
+import com.dropbox.core.DbxException;
 import jakarta.inject.Inject;
 import net.fortuna.ical4j.extensions.property.WrCalName;
 import net.fortuna.ical4j.extensions.property.WrTimezone;
@@ -20,7 +21,7 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class IcalServiceImpl implements IcalService {
+public class CalendarIcalServiceImpl implements CalendarIcalService {
 
     @Inject
     private CalendarRepository calendarRepository;
@@ -28,8 +29,11 @@ public class IcalServiceImpl implements IcalService {
     @Inject
     private CalendarEntryRepository calendarEntryRepository;
 
+    @Inject
+    private DbxClientServiceImpl dbxClientService;
+
     @Override
-    public InputStream getCalendarIcal(String calendarUuid) throws UnsupportedOperationException {
+    public InputStream createCalendarIcal(String calendarUuid) throws UnsupportedOperationException, DbxException {
         CalendarModel calendarModel = calendarRepository.findById(calendarUuid).orElseThrow(() -> new UnsupportedOperationException("exit"));
         List<CalendarEntryModel> calendarEntryModelList = calendarEntryRepository.findAllByCalendar(calendarModel);
 
@@ -54,6 +58,8 @@ public class IcalServiceImpl implements IcalService {
             vEvent.add(new XProperty("DTEND;VALUE=DATE-TIME", calendarEntryModel.getEndDateTime().atZone(ZoneOffset.UTC).format(dtf)));
             calendar.add(vEvent);
         }
-        return new ByteArrayInputStream(calendar.toString().getBytes());
+        InputStream icalInputStream = new ByteArrayInputStream(calendar.toString().getBytes());
+        dbxClientService.uploadFile(calendarModel.getUuid().replaceAll("-", ""), icalInputStream);
+        return icalInputStream;
     }
 }

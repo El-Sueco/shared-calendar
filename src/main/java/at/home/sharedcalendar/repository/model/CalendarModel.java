@@ -14,7 +14,7 @@ public class CalendarModel {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String uuid;
 
-    @Column(name = "name", unique = false, updatable = false, nullable = false)
+    @Column(name = "name", unique = false, updatable = true, nullable = false)
     private String name;
 
     public String getUuid() {
