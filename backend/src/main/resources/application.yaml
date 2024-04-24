@@ -1,7 +1,15 @@
 micronaut:
   application:
     name: shared-calendar
-
+  router:
+    static-resources:
+      default:
+        mapping: /**
+        paths: classpath:public
+        enabled: 'true'
+  server:
+    cors:
+      enabled: 'true'
 datasources:
   default:
     url: jdbc:h2:file:./data/app_db;DB_CLOSE_ON_EXIT=FALSE

@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-@Controller("/calendars")
+@Controller("/api/calendars")
 public class CalendarController {
 
     private static final Logger log = LoggerFactory.getLogger(CalendarController.class);

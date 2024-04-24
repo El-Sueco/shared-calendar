@@ -11,7 +11,7 @@ import jakarta.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Controller("/calendars/{calendarUuid}/icals")
+@Controller("/api/calendars/{calendarUuid}/icals")
 public class CalendarIcalController {
 
     private static final Logger log = LoggerFactory.getLogger(CalendarIcalController.class);

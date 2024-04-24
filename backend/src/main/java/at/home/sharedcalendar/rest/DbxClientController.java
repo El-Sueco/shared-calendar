@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
 
-@Controller("/dropbox")
+@Controller("/api/dropbox")
 public class DbxClientController {
 
     private static final Logger log = LoggerFactory.getLogger(DbxClientController.class);
