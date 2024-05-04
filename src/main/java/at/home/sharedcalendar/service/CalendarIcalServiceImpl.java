@@ -56,6 +56,7 @@ public class CalendarIcalServiceImpl implements CalendarIcalService {
             vEvent.add(new Description(calendarEntryModel.getDescription()));
             vEvent.add(new XProperty("DTSTART;VALUE=DATE-TIME", calendarEntryModel.getStartDateTime().atZone(ZoneOffset.UTC).format(dtf)));
             vEvent.add(new XProperty("DTEND;VALUE=DATE-TIME", calendarEntryModel.getEndDateTime().atZone(ZoneOffset.UTC).format(dtf)));
+            //TODO value DATe for duration
             calendar.add(vEvent);
         }
         InputStream icalInputStream = new ByteArrayInputStream(calendar.toString().getBytes());
