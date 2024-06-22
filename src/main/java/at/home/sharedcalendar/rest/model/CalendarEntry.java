@@ -17,6 +17,8 @@ public class CalendarEntry {
 
     private OffsetDateTime endDateTime;
 
+    private Boolean allDay;
+
     private String calendarUuid;
 
     public String getUuid() {
@@ -57,6 +59,14 @@ public class CalendarEntry {
 
     public void setEndDateTime(OffsetDateTime endDateTime) {
         this.endDateTime = endDateTime;
+    }
+
+    public Boolean getAllDay() {
+        return allDay;
+    }
+
+    public void setAllDay(Boolean allDay) {
+        this.allDay = allDay;
     }
 
     public String getCalendarUuid() {

@@ -28,12 +28,19 @@ public class CalendarEntryModel {
     @Column(name = "end_date_time", unique = false, updatable = true, nullable = false)
     private LocalDateTime endDateTime;
 
+    @Column(name = "all_day", unique = false, updatable = true, nullable = false)
+    private Boolean allDay;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "calendar_id", referencedColumnName = "id", unique = false, updatable = true, nullable = false)
     private CalendarModel calendar;
 
     public String getUuid() {
         return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getName() {
@@ -68,11 +75,19 @@ public class CalendarEntryModel {
         this.endDateTime = endDateTime;
     }
 
+    public Boolean getAllDay() {
+        return allDay;
+    }
+
+    public void setAllDay(Boolean allDay) {
+        this.allDay = allDay;
+    }
+
     public CalendarModel getCalendar() {
         return calendar;
     }
 
-    public void setCalendar(CalendarModel calendarModel) {
-        this.calendar = calendarModel;
+    public void setCalendar(CalendarModel calendar) {
+        this.calendar = calendar;
     }
 }

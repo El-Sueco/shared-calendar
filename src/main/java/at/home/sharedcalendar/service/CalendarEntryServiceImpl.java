@@ -53,6 +53,7 @@ public class CalendarEntryServiceImpl implements CalendarEntryService {
         calendarEntryModel.setDescription(calendarEntry.getDescription());
         calendarEntryModel.setStartDateTime(LocalDateTime.ofInstant(calendarEntry.getStartDateTime().toInstant(), ZoneOffset.UTC));
         calendarEntryModel.setEndDateTime(LocalDateTime.ofInstant(calendarEntry.getEndDateTime().toInstant(), ZoneOffset.UTC));
+        calendarEntryModel.setAllDay(calendarEntry.getAllDay());
         calendarEntryModel.setCalendar(calendarModel);
         calendarEntryModel = calendarEntryRepository.save(calendarEntryModel);
         return modelMapper.map(calendarEntryModel, CalendarEntry.class);
@@ -74,6 +75,7 @@ public class CalendarEntryServiceImpl implements CalendarEntryService {
         calendarEntryModel.setDescription(calendarEntry.getDescription());
         calendarEntryModel.setStartDateTime(LocalDateTime.ofInstant(calendarEntry.getStartDateTime().toInstant(), ZoneOffset.UTC));
         calendarEntryModel.setEndDateTime(LocalDateTime.ofInstant(calendarEntry.getEndDateTime().toInstant(), ZoneOffset.UTC));
+        calendarEntryModel.setAllDay(calendarEntry.getAllDay());
         calendarEntryModel.setCalendar(calendarModel);
         calendarEntryModel = calendarEntryRepository.merge(calendarEntryModel);
         return modelMapper.map(calendarEntryModel, CalendarEntry.class);
